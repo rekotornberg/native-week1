@@ -1,8 +1,5 @@
 # Viikko 1 – Task App
 
-Android-sovellus tehtävien hallintaan.  
-Toteutettu Kotlinilla ja Jetpack Compose -kirjastolla.
-
 ## Teknologiat
 - Kotlin
 - Jetpack Compose
@@ -43,13 +40,9 @@ Projektissa on selkeä vastuunjako:
 - **Klikkaa tehtävää** vaihtaaksesi sen tilan (Done ↔ Undone)
 
 ## APK
-Sovelluksen asennuspaketti (APK) on ladattavissa GitHub Releasesta:
+https://github.com/rekotornberg/native-week1/releases/tag/v1.0
 
-➡️ **Releases → app-debug.apk**
-
-APK voidaan asentaa suoraan Android-laitteeseen tai emulaattoriin ilman Android Studiota.
-
-## Ajaminen kehitysympäristössä
+## Sovelluksen ajaminen
 1. Avaa projekti Android Studiossa
 2. Valitse emulaattori tai fyysinen Android-laite
 3. Paina **Run**
