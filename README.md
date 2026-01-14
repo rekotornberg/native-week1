@@ -1,13 +1,6 @@
 # Viikko 1 – Task App
 
-## Teknologiat
-- Kotlin
-- Jetpack Compose
-- Android Studio
-- Android SDK (minSdk 24)
-
 ## Rakenne
-Projektissa on selkeä vastuunjako:
 - **domain**  
   - `Task` data class  
   - Puhtaat Kotlin-funktiot:
@@ -21,19 +14,16 @@ Projektissa on selkeä vastuunjako:
   - Kytkee Compose UI:n sovelluksen käynnistykseen
 
 ## Ominaisuudet
-- Mock-data (5–10 tehtävää)
+- Mock data
 - Tehtävien lisääminen (Add)
 - Tehtävän tilan vaihto (Done / Undone) klikkaamalla
 - Tehtävien suodatus:
   - All
   - Done
   - Undone
-- Tehtävien järjestäminen päivämäärän mukaan (uusin ensin)
-- Selkeä Compose UI:
-  - Column / Row / Modifier
-  - Ei XML-layoutteja
+- Tehtävien järjestäminen päivämäärän mukaan
 
-## Käyttö
+## Sovelluksen käyttö
 - **Add**: lisää uuden tehtävän listaan
 - **Sort**: järjestää tehtävät eräpäivän mukaan (uusin ensin)
 - **All / Done / Undone**: suodattaa näkyvät tehtävät
