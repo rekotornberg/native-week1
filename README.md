@@ -34,5 +34,5 @@ https://github.com/rekotornberg/native-week1/releases/tag/v1.0
 
 ## Sovelluksen ajaminen
 1. Avaa projekti Android Studiossa
-2. Valitse emulaattori tai fyysinen Android-laite
+2. Valitse emulaattori tai Android laite
 3. Paina **Run**
