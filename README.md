@@ -27,7 +27,7 @@
 - **Add**: lisää uuden tehtävän listaan
 - **Sort**: järjestää tehtävät eräpäivän mukaan (uusin ensin)
 - **All / Done / Undone**: suodattaa näkyvät tehtävät
-- **Klikkaa tehtävää** vaihtaaksesi sen tilan (Done ↔ Undone)
+- **Klikkaa tehtävää** Tehtävän tila vaihtuu done -> undone tai undone -> done
 
 ## APK
 https://github.com/rekotornberg/native-week1/releases/tag/v1.0
