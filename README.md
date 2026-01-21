@@ -1,3 +1,13 @@
+# Viikko 2 - View model
+
+## Miten Compose tilanhallinta toimii
+- **Tilanhallinta**
+  -Compose tilanhallinta perustuu käyttöliittymämalliin, missä käyttöliittymä kertoo sovelluksen nykyistä tilaa
+  -Compose seuraa tilaa (stste) ja kun tilan arvo muuttuu, compose "uudelleenrakentaa" automaattisesti ne käyttöliittymän osat, jotka käyttää kyseistä tilaa. 
+
+- **Miksi ViewModel on parempi kuin pelkkä remember**
+  - ViewModel erottaa sovelluslogiikan käyttöliittymästä, koodi on selkeämpää ja helpommin testattavissa ja esim. remeberiä käyttäessä, tila häviää joissain tilanteissa (näytönkääntö)
+
 # Viikko 1 – Task App
 
 ## Rakenne
