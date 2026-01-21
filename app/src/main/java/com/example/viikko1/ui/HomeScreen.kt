@@ -1,112 +1,115 @@
 package com.example.viikko1.ui
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.viikko1.domain.*
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.viikko1.domain.Task
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(vm: TaskViewModel = viewModel()) {
 
-    var allTasks by remember { mutableStateOf(mockTasks) }
-    var visibleTasks by remember { mutableStateOf(allTasks) }
+    var newTitle by remember { mutableStateOf("") }
 
     Column(modifier = Modifier.padding(16.dp)) {
-
-        Text(
-            text = "Tehtävälista",
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-
+        Text(text = "Tehtävälista")
 
         Spacer(modifier = Modifier.height(12.dp))
 
         Row(modifier = Modifier.fillMaxWidth()) {
-
-            Button(onClick = {
-                val nextId = (allTasks.maxOfOrNull { it.id } ?: 0) + 1
-                val newTask = Task(
-                    id = nextId,
-                    title = "Uusi tehtävä $nextId",
-                    description = "Lisätty napista",
-                    priority = 1,
-                    dueDate = allTasks.last().dueDate.plusDays(1),
-                    done = false
-                )
-                allTasks = addTask(allTasks, newTask)
-                visibleTasks = allTasks
-            }) {
-                Text("Add")
-            }
+            Button(onClick = { vm.showAll() }) { Text("All") }
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            Button(onClick = {
-                allTasks = sortByDueDate(allTasks)
-                visibleTasks = allTasks
-            }) {
-                Text("Sort")
-            }
+            Button(onClick = { vm.filterByDone(true) }) { Text("Done") }
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Button(onClick = { vm.filterByDone(false) }) { Text("Undone") }
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Button(onClick = { vm.sortByDueDate() }) { Text("Sort") }
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         Row(modifier = Modifier.fillMaxWidth()) {
-
-            Button(onClick = { visibleTasks = allTasks }) {
-                Text("All")
-            }
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            Button(onClick = { visibleTasks = filterByDone(allTasks, true) }) {
-                Text("Done")
-            }
+            OutlinedTextField(
+                value = newTitle,
+                onValueChange = { newTitle = it },
+                modifier = Modifier.weight(1f),
+                label = { Text("Uusi tehtävä") },
+                singleLine = true
+            )
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            Button(onClick = { visibleTasks = filterByDone(allTasks, false) }) {
-                Text("Undone")
+            Button(onClick = {
+                val title = newTitle.trim()
+                if (title.isNotEmpty()) {
+                    vm.addTask(
+                        Task(
+                            id = vm.nextId(),
+                            title = title,
+                            description = "",
+                            priority = 1,
+                            dueDate = vm.nextDueDate(),
+                            done = false
+                        )
+                    )
+                    newTitle = ""
+                }
+            }) {
+                Text("Add")
             }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-            Column {
-                visibleTasks.forEach { task ->
-                    val statusText = if (task.done) "Done" else "Undone"
-                    val statusIcon = if (task.done) "✓" else "▢"
-
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable {
-                                allTasks = toggleDone(allTasks, task.id)
-                                visibleTasks = allTasks
-                            }
-                            .padding(12.dp)
-                    ) {
-                        // Ylärivi: ikoni + otsikko
-                        Row {
-                            Text(text = "$statusIcon ")
-                            Text(text = task.title)
-                        }
-
-                        Spacer(modifier = Modifier.height(4.dp))
-
-                        // Alarivi: päivämäärä + tila
-                        Text(
-                            text = "${task.dueDate} • $statusText",
-                            modifier = Modifier.padding(start = 16.dp)
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(8.dp))
-                }
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            items(items = vm.tasks, key = { it.id }) { task ->
+                TaskRow(
+                    title = task.title,
+                    done = task.done,
+                    onToggle = { vm.toggleDone(task.id) },
+                    onRemove = { vm.removeTask(task.id) }
+                )
+                Spacer(modifier = Modifier.height(8.dp))
             }
+        }
+    }
+}
+
+@Composable
+private fun TaskRow(
+    title: String,
+    done: Boolean,
+    onToggle: () -> Unit,
+    onRemove: () -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Row(modifier = Modifier.weight(1f)) {
+            Checkbox(
+                checked = done,
+                onCheckedChange = { onToggle() }
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(text = title)
+        }
+
+        Button(onClick = onRemove) {
+            Text("Poista")
+        }
     }
 }
