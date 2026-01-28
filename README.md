@@ -1,3 +1,15 @@
+# Viikko 3 - MVVM
+
+## Miksi MVVM on hyöyllinen Compose sovelluksissa?
+- MVVM on arkkitehtuuri malli Model, View ja ViewModel. Tällä tavalla saadaan jaettua sovelluksen vastuut selkeästi eri kerroksiin.
+- Sovelluksen rakenne pysyy siistinä, ja sitä on helppo laajentaa.
+- Model, sovelluksen data ja tietorakenne
+- View, hoitaa käyttöliittymää
+- ViewModel, hallitsee sovelluksen tilat.
+
+## Miten StateFlow toimii?
+- StateFlow:ta käytetään tilanvälityksiin. StateFlow ylläpitää sovellusken tilaa ViewModelissa. Kun tila muuttuu, se lähettää uuden arvon tilaa kuunteleville funktioille.
+
 # Viikko 2 - View model
 
 ## Miten Compose tilanhallinta toimii
